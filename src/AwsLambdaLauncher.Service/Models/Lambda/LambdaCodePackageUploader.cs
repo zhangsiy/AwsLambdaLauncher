@@ -17,7 +17,7 @@ namespace MyWebService.Models.Lambda
             return await S3Client.WriteToS3(
                 "temp-jeff-test-attribute-calculation-lambda-bucket1",
                 functionName,
-                packageBuilder.BuildZipStream("abc")
+                packageBuilder.BuildZipStream(codeBody)
             );
         }
     }

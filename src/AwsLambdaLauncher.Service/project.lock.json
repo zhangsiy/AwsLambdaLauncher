@@ -5329,7 +5329,9 @@
       "System.Data.SqlClient >= 4.1.0",
       "System.Runtime >= 4.1.0"
     ],
-    ".NETFramework,Version=v4.5.2": []
+    ".NETFramework,Version=v4.5.2": [
+      "System.IO.Compression.FileSystem >= 4.0.0"
+    ]
   },
   "tools": {
     ".NETCoreApp,Version=v1.0": {

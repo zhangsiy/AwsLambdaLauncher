@@ -19,10 +19,26 @@ namespace MyWebService.Controllers.Api
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
-        public async Task<string> Get(string id)
+        [HttpGet("{functionName}")]
+        public async Task<string> Get(string functionName)
         {
-            var key = await Uploader.UploadAsync("test_function", "abcabc");
+            string codeBody = 
+                "console.log('Loading function');" +
+                "var AWS = require('aws-sdk');" + 
+
+                "exports.handler = function(event, context) {" +
+                    "var eventText = '11111111111#####' + JSON.stringify(event, null, 2);" +
+                    "console.log('Received event:', eventText);" +
+                    "var sns = new AWS.SNS();" + 
+                    "var params = {" + 
+                        "Message: eventText," +
+                        "Subject: 'Test SNS From Lambda'," + 
+                        "TopicArn: 'arn:aws:sns:us-east-1:119381170469:Temp_Jeff_Test_Lambda_Output_Topic'" + 
+                    "};" + 
+                    "sns.publish(params, context.done);" + 
+                "};";
+
+            var key = await Uploader.UploadAsync("temp_jeff_test_lambda_to_sns", codeBody);
 
             return key;
         }
@@ -34,14 +50,8 @@ namespace MyWebService.Controllers.Api
         }
 
         // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(string id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(string id)
+        [HttpPut("{functionName}")]
+        public void Put(string functionName, [FromBody]string value)
         {
         }
     }

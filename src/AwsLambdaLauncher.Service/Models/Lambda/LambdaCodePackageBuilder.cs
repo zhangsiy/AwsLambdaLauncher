@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using System.Text;
+using System.IO.Compression;
 
 namespace MyWebService.Models.Lambda
 {
@@ -7,12 +7,22 @@ namespace MyWebService.Models.Lambda
     {
         public Stream BuildZipStream(string codeBody)
         {
-            var stream =  new MemoryStream();
-            StreamWriter sw = new StreamWriter(stream, Encoding.UTF8);
-            sw.Write(codeBody);
-            sw.Flush();
-            stream.Seek(0, SeekOrigin.Begin);
-            return stream;
+            var memoryStream = new MemoryStream();
+
+            using (var archive = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
+            {
+                var demoFile = archive.CreateEntry("index.js");
+
+                using (var entryStream = demoFile.Open())
+                using (var streamWriter = new StreamWriter(entryStream))
+                {
+                    streamWriter.Write(codeBody);
+                    streamWriter.Flush();
+                }
+            }
+
+            memoryStream.Seek(0, SeekOrigin.Begin);
+            return memoryStream;
         }
     }
 }

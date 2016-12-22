@@ -27,7 +27,7 @@ namespace MyWebService.Controllers.Api
                 "var AWS = require('aws-sdk');" + 
 
                 "exports.handler = function(event, context) {" +
-                    "var eventText = '11111111111#####' + JSON.stringify(event, null, 2);" +
+                    "var eventText = '3333333333#####' + JSON.stringify(event, null, 2);" +
                     "console.log('Received event:', eventText);" +
                     "var sns = new AWS.SNS();" + 
                     "var params = {" + 
@@ -38,7 +38,7 @@ namespace MyWebService.Controllers.Api
                     "sns.publish(params, context.done);" + 
                 "};";
 
-            var key = await Uploader.UploadAsync("temp_jeff_test_lambda_to_sns", codeBody);
+            var key = await Uploader.UploadAsync("temp_jeff_test_lambda_to_sns_3", codeBody);
 
             return key;
         }

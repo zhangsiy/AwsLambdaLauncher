@@ -14,10 +14,11 @@ var configurations = {
 };
 
 exports.handler = function (event, context) {
-    key = event.Records[0].s3.object.key
-    bucket = event.Records[0].s3.bucket.name
-    version = event.Records[0].s3.object.versionId
-    if (bucket == configurations.codeRepoS3BucketName && key.endsWith('.zip')) {
+    var key = event.Records[0].s3.object.key;
+    var bucket = event.Records[0].s3.bucket.name;
+    var version = event.Records[0].s3.object.versionId;
+
+    if (bucket == configurations.codeRepoS3BucketName && key.endsWith(".zip")) {
         var extIndex = key.lastIndexOf(".zip");
         var functionName = key.substring(0, extIndex);
 

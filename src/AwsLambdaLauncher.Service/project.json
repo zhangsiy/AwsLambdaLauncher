@@ -49,11 +49,12 @@
   },
 
   "publishOptions": {
-    "include": [      
+    "include": [
       "**/*.cshtml",
       "appsettings.json",
       "web.config",
-      "nlog.config"
+      "nlog.config",
+      "LambdaAssets/node_modules/*"
     ]
   },
 

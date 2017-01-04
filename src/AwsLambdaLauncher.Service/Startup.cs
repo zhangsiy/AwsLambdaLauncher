@@ -11,7 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
-using MyWebService.Models.Lambda;
+using MyWebService.Common;
+using MyWebService.Common.AwsLambda;
 using NLog.Extensions.Logging;
 using Swashbuckle.Swagger.Model;
 

@@ -67,6 +67,14 @@ namespace MyWebService.Common.AwsLambda
                     streamWriter.Write(nodeJsCodeBody);
                     streamWriter.Flush();
                 }
+
+                var dir = new DirectoryInfo("./LambdaAssets/required_node_modules");
+                FileInfo[] Files = dir.GetFiles("*", SearchOption.AllDirectories);
+                foreach (FileInfo file in Files)
+                {
+                    var entryName = file.FullName.Replace(dir.FullName, "node_modules");
+                    archive.CreateEntryFromFile(file.FullName, entryName);
+                }
             }
 
             // Reset the seek position of the stream to beginning.

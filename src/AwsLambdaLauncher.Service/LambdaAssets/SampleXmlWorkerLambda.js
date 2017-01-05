@@ -1,5 +1,7 @@
 ﻿console.log('Loading function');
 var AWS = require('aws-sdk');
+var Xpath = require('xpath');
+var DomParser = require('xmldom').DOMParser;
 
 exports.handler = function (event, context) {
     var eventText = JSON.stringify(event, null, 2);
@@ -11,14 +13,13 @@ exports.handler = function (event, context) {
     var xml = parsedMessage['Xml'];
 
     // Sample XML parsing for attribute
-    var xmlDoc = $.parseXML(xml);
-    var $xmlDoc = $(xmlDoc);
-    var $imageElements = $xmlDoc.find('img');
+    var xmlDoc = new DomParser().parseFromString(xml);
+    var imageNodes = Xpath.select('//img', xmlDoc);
 
     // Construct output
     var outputMessage = 'No images found';
-    if ($imageElements.length > 0) {
-        outputMessage = 'Found ' + $imageElements.length + ' images';
+    if (imageNodes.length > 0) {
+        outputMessage = 'Found ' + imageNodes.length + ' images';
     }
 
     var sns = new AWS.SNS();

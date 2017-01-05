@@ -54,7 +54,7 @@
       "appsettings.json",
       "web.config",
       "nlog.config",
-      "LambdaAssets/node_modules/*"
+      "LambdaAssets/required_node_modules/*"
     ]
   },
 
